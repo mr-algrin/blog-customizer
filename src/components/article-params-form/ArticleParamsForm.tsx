@@ -89,8 +89,8 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						/>
 					</div>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' type='reset' />
-						<Button title='Применить' type='submit' />
+						<Button title='Сбросить' type='reset' variant={'secondary'} />
+						<Button title='Применить' type='submit' variant={'primary'} />
 					</div>
 				</form>
 			</aside>
