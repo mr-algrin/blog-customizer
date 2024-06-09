@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useCallback } from 'react';
 import clsx from 'clsx';
 
 import { ArrowButton } from 'components/arrow-button';
@@ -13,16 +13,18 @@ import {
 	fontColors,
 	fontSizeOptions,
 	backgroundColors,
-	defaultArticleState,
 	contentWidthArr,
 	ArticleStateType,
 } from 'src/constants/articleProps';
 
-export const ArticleParamsForm = () => {
+type ArticleParamsFormProps = {
+	initialParams: ArticleStateType;
+	onUpdateParams: (params: ArticleStateType) => void;
+};
+
+export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [state, setState] = useState<ArticleStateType>({
-		...defaultArticleState,
-	});
+	const [state, setState] = useState<ArticleStateType>(props.initialParams);
 
 	const onChange =
 		<Key extends keyof ArticleStateType>(key: Key) =>
@@ -32,11 +34,18 @@ export const ArticleParamsForm = () => {
 
 	const onClick = () => setIsOpen((prev) => !prev);
 
-	const onApply = (evt: FormEvent<HTMLFormElement>) => {
-		evt.preventDefault();
-	};
+	const onApply = useCallback(
+		(evt: FormEvent<HTMLFormElement>) => {
+			evt.preventDefault();
+			props.onUpdateParams(state);
+		},
+		[state, props.onUpdateParams]
+	);
 
-	const onReset = () => setState({ ...defaultArticleState });
+	const onReset = useCallback(() => {
+		setState({ ...props.initialParams });
+		props.onUpdateParams(props.initialParams);
+	}, [props.onUpdateParams, props.initialParams]);
 
 	return (
 		<div>
