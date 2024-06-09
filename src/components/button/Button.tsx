@@ -1,3 +1,4 @@
+import React from 'react';
 import clsx from 'clsx';
 
 import { Text } from 'components/text';
