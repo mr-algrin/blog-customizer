@@ -1,4 +1,4 @@
-import { FormEvent, useState, useCallback } from 'react';
+import { FormEvent, useState, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 
 import { ArrowButton } from 'components/arrow-button';
@@ -16,6 +16,7 @@ import {
 	contentWidthArr,
 	ArticleStateType,
 } from 'src/constants/articleProps';
+import { useClose } from 'src/hooks/useClose';
 
 type ArticleParamsFormProps = {
 	initialParams: ArticleStateType;
@@ -23,8 +24,15 @@ type ArticleParamsFormProps = {
 };
 
 export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
+	const asideRef = useRef<HTMLElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const [state, setState] = useState<ArticleStateType>(props.initialParams);
+
+	useClose({
+		isOpen: isOpen,
+		onClose: () => setIsOpen(false),
+		rootRef: asideRef,
+	});
 
 	const onChange =
 		<Key extends keyof ArticleStateType>(key: Key) =>
@@ -51,6 +59,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		<div>
 			<ArrowButton onClick={onClick} isOpen={isOpen} />
 			<aside
+				ref={asideRef}
 				className={clsx(styles.container, isOpen && styles.container_open)}>
 				<form className={styles.form} onSubmit={onApply} onReset={onReset}>
 					<div className={styles.content}>
