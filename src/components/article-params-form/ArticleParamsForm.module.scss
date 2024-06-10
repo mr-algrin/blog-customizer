@@ -25,6 +25,22 @@
 	border-right: 1px solid #000000;
 }
 
+.title {
+	font-weight: 800;
+	font-size: 31px;
+	font-family: 'Open Sans', sans-serif;
+	line-height: 2.64;
+	text-transform: uppercase;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 50px;
+	padding-bottom: 207px;
+}
+
 .bottomContainer {
 	display: flex;
 	justify-content: space-between;

@@ -17,11 +17,13 @@ export const ButtonStory: Story = {
 					title='Сбросить'
 					type='reset'
 					onClick={() => alert('клик на кнопку сбросить')}
+					variant={'primary'}
 				/>
 				<Button
 					title='Применить'
 					type='submit'
 					onClick={() => alert('клик на кнопку применить')}
+					variant={'secondary'}
 				/>
 			</>
 		);
